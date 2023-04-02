@@ -22,7 +22,7 @@ def database(file):
                       URL TEXT,
                       author TEXT,
                       date TEXT)''')
-    except:
+    finally:
         for row in data_list:
             c.execute('''SELECT * FROM ScrapData WHERE headline=? AND URL=? AND author=? AND date=?''',
                       (row['headline'], row['URL'], row['author'], row['date']))

@@ -15,26 +15,27 @@ def database(file):
 
     conn = sqlite3.connect('ScrapDB.db')
     c = conn.cursor()
-    # uncomment the below if your're running this project for first time
-    c.execute('''CREATE TABLE ScrapData
-                 (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                  headline TEXT,
-                  URL TEXT,
-                  author TEXT,
-                  date TEXT)''')
-    for row in data_list:
-        c.execute('''SELECT * FROM ScrapData WHERE headline=? AND URL=? AND author=? AND date=?''',
-                  (row['headline'], row['URL'], row['author'], row['date']))
-        if c.fetchone() is not None:
-            continue
-        else:
-            c.execute('''INSERT INTO ScrapData (headline, URL, author, date)
-                     VALUES (?, ?, ?, ?)''', (row['headline'], row['URL'], row['author'], row['date']))
-    conn.commit()
-    # uncomment the below if you need to see stored data in database
-    print('=========================================Database Query=========================================')
-    c.execute('''SELECT * FROM ScrapData''')
-    results = c.fetchall()
-    for row in results:
-        print(row)
-    conn.close()
+    try:
+        c.execute('''CREATE TABLE ScrapData
+                     (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                      headline TEXT,
+                      URL TEXT,
+                      author TEXT,
+                      date TEXT)''')
+    except:
+        for row in data_list:
+            c.execute('''SELECT * FROM ScrapData WHERE headline=? AND URL=? AND author=? AND date=?''',
+                      (row['headline'], row['URL'], row['author'], row['date']))
+            if c.fetchone() is not None:
+                continue
+            else:
+                c.execute('''INSERT INTO ScrapData (headline, URL, author, date)
+                         VALUES (?, ?, ?, ?)''', (row['headline'], row['URL'], row['author'], row['date']))
+        conn.commit()
+        # uncomment the below if you need to see stored data in database
+        print('=========================================Database Query=========================================')
+        c.execute('''SELECT * FROM ScrapData''')
+        results = c.fetchall()
+        for row in results:
+            print(row)
+        conn.close()

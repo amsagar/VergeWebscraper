@@ -32,8 +32,9 @@ def database(file):
                      VALUES (?, ?, ?, ?)''', (row['headline'], row['URL'], row['author'], row['date']))
     conn.commit()
     # uncomment the below if you need to see stored data in database
-    # c.execute('''SELECT * FROM ScrapData''')
-    # results = c.fetchall()
-    # for row in results:
-    #     print(row)
+    print('=========================================Database Query=========================================')
+    c.execute('''SELECT * FROM ScrapData''')
+    results = c.fetchall()
+    for row in results:
+        print(row)
     conn.close()

@@ -7,7 +7,7 @@ import os
 # getting date in ddmmyy format using strftime method
 ddmmyy = datetime.datetime.now().strftime("%d%m%y")
 # storing ddmmyy_verge.csv files in Csv_Data_Files directory
-file_name = os.getcwd() + '/' + ddmmyy + "_verge.csv"
+file_name = os.getcwd() + '/Csv_Data_Files/' + ddmmyy + "_verge.csv"
 # calling scrap data method which are declared in module Scrapper
 resData = HomePage().getData() + SpecificPage().getData()
 # opening csv file in write mode
